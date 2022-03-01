@@ -1,34 +1,47 @@
-// game script
-
-const playerMove = "ROCK";
-const computerMove = computerPlay();
 let playerScore = 0;
 let computerScore = 0;
+let playerMove = "rock";
+const moves = ["rock", "paper", "scissors"];
+let result = ["win", "lose", "tie"];
+const computerMove = computerPlay();
+const outcome = playRound(playerMove, computerMove);
 
+// Return PC Move
 function computerPlay(){
-    let moves = ["rock", "paper", "scissors"];
-    return moves[Math.floor(Math.random()*moves.length)];
+    return moves[Math.floor(Math.random() * moves.length)];
 }
 
-function playRound(playerMove, computerMove){
-    playerMove = playerMove.toLowerCase();
-    if (playerMove === computerMove){
-        return "It's a tie!";
-    }
-    else if (playerMove === "rock" && computerMove === "scissors" || playerMove === "paper" && computerMove === "rock" || playerMove === "scissors" && computerMove === "paper"){
-        playerScore++
-        return `You Win! ${playerMove} beats ${computerMove}`;
-    }
-    else {computerScore++;
-        return `You Lose, ${computerMove} beats ${playerMove}`};
+// console.log(computerMove)
 
+// Single Round
+function playRound(a, b){
+    if (a == b){
+        return result[2]
+    }
+    else if (a == moves[0] && b == moves[2] || a == moves[1] && b == moves[0] || a == moves[2] && b == moves[1]){
+        return result[0]
+    }
+    else {
+        return result[1]
+    }
 }
 
+// Single Game
 function game(){
-    for (let i = 0; i < 5; i++) {
-        playRound(playerMove, computerMove);
-     } 
-     return `${playerScore} to ${computerScore}`
+    if (outcome == "win"){
+        playerScore++
+        console.log("Winner");
+    }
+    else if (outcome == "lose"){
+        computerScore++
+        console.log("Loser");
+    }
+    else {
+        console.log("Tie")
+    }
+    console.log(playerScore, computerScore)
 }
 
-console.log(game());
+game()
+
+
